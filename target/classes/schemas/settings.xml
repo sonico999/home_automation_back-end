@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:settings xmlns:p="settings.home_automation" xmlns:p1="arduino.settings.home_automation" xmlns:p2="network.settings.home_automation" xmlns:p3="ports.settings.home_automation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="settings.home_automation settings.xsd ">
+  <arduino>
+    <name>ArduinoEthernet1</name>
+    <socket>
+      <host>
+        <ip>169.254.129.111</ip>
+      </host>
+      <port>8888</port>
+    </socket>
+    <port>
+      <LightConfiguration>
+        <PWM>
+          <type>PWM</type>
+          <PWMPorts>
+            <port>
+              <name>variable Light</name>
+              <Port>3</Port>
+            </port>
+          </PWMPorts>
+        </PWM>
+      </LightConfiguration>
+      <LightConfiguration>
+        <IO>
+          <type>IO</type>
+          <IOPorts>
+            <port>
+              <name>ceiling light</name>
+              <Port>1</Port>
+            </port>
+          </IOPorts>
+        </IO>
+      </LightConfiguration>
+      <MotorConfiguration>
+        <PWM>
+          <type>PWM</type>
+          <PWMPorts>
+            <port>
+              <name>name</name>
+              <Port>0</Port>
+            </port>
+          </PWMPorts>
+        </PWM>
+      </MotorConfiguration>
+      <SensorConfiguration>
+        <type>ADC</type>
+        <ADCPorts>
+          <port>
+            <name>name</name>
+            <Port>0</Port>
+          </port>
+        </ADCPorts>
+      </SensorConfiguration>
+      <StepperConfiguration>
+        <type>IO</type>
+        <IOPorts>
+          <port>
+            <name>name</name>
+            <Port>0</Port>
+          </port>
+        </IOPorts>
+      </StepperConfiguration>
+    </port>
+  </arduino>
+</p:settings>
