@@ -11,26 +11,25 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public abstract class Garage extends ClassList implements IRoom {
 
 	String garageName;
-	ArrayList <Sensor> garageSensorList = new ArrayList<Sensor>();
-	ArrayList <LightApplication> garageLightList = new ArrayList<LightApplication>();
-	ArrayList <StepperApplication> garageStepperList = new ArrayList<StepperApplication>();
-	ArrayList <MotorApplication> garageMotorList = new ArrayList<MotorApplication>();
+	ArrayList<Sensor> garageSensorList = new ArrayList<Sensor>();
+	ArrayList<LightApplication> garageLightList = new ArrayList<LightApplication>();
+	ArrayList<StepperApplication> garageStepperList = new ArrayList<StepperApplication>();
+	ArrayList<MotorApplication> garageMotorList = new ArrayList<MotorApplication>();
 
-	private static final Logger logger = LoggerFactory
-			.getLogger("Garage");
-	
-	public Garage(String garageName){
-		logger.info(Markers.CONSTRUCTOR,"Creating Garage Instance {}",garageName);
+	private static final Logger logger = LoggerFactory.getLogger("Garage");
+
+	public Garage(String garageName) {
+		logger.info(Markers.CONSTRUCTOR, "Creating Garage Instance {}",
+				garageName);
 		this.garageName = garageName;
 		super.addRoom(this);
 	}
-	
+
 	public String getRoomName() {
-		logger.info(Markers.GETTER,"Garage name:  {}", garageName);
+		logger.info(Markers.GETTER, "Garage name:  {}", garageName);
 		return garageName;
 	}
 
@@ -38,8 +37,8 @@ public abstract class Garage extends ClassList implements IRoom {
 	public LightApplication addLight(LightApplication light) {
 		super.addLight(light);
 		garageLightList.add(light);
-		Object arr[] = {light.getLightName(),light.getLightType(),garageName};
-		logger.info("Adding light: {} of type {} to the {}",arr);
+		Object arr[] = { light.getLightName(), light.getLightType(), garageName };
+		logger.info("Adding light: {} of type {} to the {}", arr);
 		return light;
 	}
 
@@ -47,34 +46,37 @@ public abstract class Garage extends ClassList implements IRoom {
 	public Sensor addSensor(Sensor sensor) {
 		super.addSensor(sensor);
 		garageSensorList.add(sensor);
-		Object arr[] = {sensor.getSensorName(),sensor.getSensorType(),garageName};
-		logger.info("Adding sensor: {} of type {} to the {}",arr);
+		Object arr[] = { sensor.getSensorName(), sensor.getSensorType(),
+				garageName };
+		logger.info("Adding sensor: {} of type {} to the {}", arr);
 		return sensor;
 	}
-	
+
 	@Override
 	public StepperApplication addStepper(StepperApplication stepper) {
 		super.addStepper(stepper);
 		garageStepperList.add(stepper);
-		logger.info("Adding sensor: {} to the {}",stepper.getStepperMotorName(),garageName);
+		logger.info("Adding sensor: {} to the {}",
+				stepper.getStepperMotorName(), garageName);
 		return stepper;
 	}
-	
+
 	@Override
-	public MotorApplication addMotor(MotorApplication motor){
+	public MotorApplication addMotor(MotorApplication motor) {
 		super.addMotor(motor);
 		garageMotorList.add(motor);
-		logger.info("Adding motor: {} to the {}",motor.getMotorName(),garageName);
+		logger.info("Adding motor: {} to the {}", motor.getMotorName(),
+				garageName);
 		return motor;
 	}
-	
-	public ArrayList<LightApplication> getGarageLights(){
-		logger.info(Markers.GETTER,"Returning {} list of lights",garageName);
+
+	public ArrayList<LightApplication> getGarageLights() {
+		logger.info(Markers.GETTER, "Returning {} list of lights", garageName);
 		return garageLightList;
 	}
-	
-	public ArrayList<Sensor> getGarageSensor(){
-		logger.info(Markers.GETTER,"Returning {} list of sensors",garageName);
+
+	public ArrayList<Sensor> getGarageSensor() {
+		logger.info(Markers.GETTER, "Returning {} list of sensors", garageName);
 		return garageSensorList;
 	}
 }

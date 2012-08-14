@@ -15,7 +15,8 @@ public final class Constants {
 	public static final int DELAY = 5;
 
 	public final static class Markers {
-		public final static Marker  CONSTRUCTOR= MarkerFactory.getMarker("CONSTRUCTOR");
+		public final static Marker CONSTRUCTOR = MarkerFactory
+				.getMarker("CONSTRUCTOR");
 		public final static Marker GETTER = MarkerFactory.getMarker("GETTER");
 		public final static Marker SETTER = MarkerFactory.getMarker("SETTER");
 		public final static Marker WRITING = MarkerFactory.getMarker("WRITING");

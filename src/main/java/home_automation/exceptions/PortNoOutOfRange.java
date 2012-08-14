@@ -10,7 +10,7 @@ public class PortNoOutOfRange extends Exception {
 	public PortNoOutOfRange() {
 		System.out.println("Number is out of range");
 	}
-	
+
 	public PortNoOutOfRange(String exception) {
 		System.out.println(exception);
 	}

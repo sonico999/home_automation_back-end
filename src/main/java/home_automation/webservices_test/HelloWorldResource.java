@@ -10,24 +10,26 @@ import flexjson.JSONSerializer;
  */
 public class HelloWorldResource extends ServerResource {
 	String s;
-public HelloWorldResource(String s ){
-	this.s=s;
-}
-public HelloWorldResource(){
-	
-}
 
-    public String represent() {
-        return "HelloWorld  ..........";
-    }
-  
-    @Get
-    public String hello(){
-    	return "hello";
-    }
-    
-    public String toJSON() {
-    	  JSONSerializer serializer = new JSONSerializer();
-    	    return serializer.deepSerialize( this );
+	public HelloWorldResource(String s) {
+		this.s = s;
+	}
+
+	public HelloWorldResource() {
+
+	}
+
+	public String represent() {
+		return "HelloWorld  ..........";
+	}
+
+	@Get
+	public String hello() {
+		return "hello";
+	}
+
+	public String toJSON() {
+		JSONSerializer serializer = new JSONSerializer();
+		return serializer.deepSerialize(this);
 	}
 }

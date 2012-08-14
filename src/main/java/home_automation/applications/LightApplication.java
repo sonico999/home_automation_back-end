@@ -12,7 +12,6 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class LightApplication {
 	IRoom room;
 	String lightName;
@@ -27,8 +26,7 @@ public class LightApplication {
 
 	public LightApplication(LightType typeOfSwitching, ArduinoCommunication AC,
 			IRoom room, String lightName, int portNo) throws PortNoOutOfRange {
-		logger.info(Markers.CONSTRUCTOR,
-				"Creating Light Application instance");
+		logger.info(Markers.CONSTRUCTOR, "Creating Light Application instance");
 		this.AC = AC;
 		this.room = room;
 		this.lightName = lightName;
@@ -44,36 +42,36 @@ public class LightApplication {
 	public void setBrightness(int PWMpercentage) throws IOException,
 			PercentageOutOfRange {
 		this.PWMpercentage = PWMpercentage;
-		if (typeOfSwitching.equals(LightType.PWM)){
-			logger.info(Markers.SETTER,"Setting light brightness to {}%", PWMpercentage);
+		if (typeOfSwitching.equals(LightType.PWM)) {
+			logger.info(Markers.SETTER, "Setting light brightness to {}%",
+					PWMpercentage);
 			AC.pwm(portNo, PWMpercentage);
-		}
-		else
+		} else
 			logger.error("The light {} is not a PWM type", lightName);
 	}
 
 	public int getBrightness() {
-		logger.info(Markers.GETTER,"Light brightness is {}%", PWMpercentage);
+		logger.info(Markers.GETTER, "Light brightness is {}%", PWMpercentage);
 		return PWMpercentage;
 	}
 
 	public String getRoom() {
-		logger.info(Markers.GETTER,"Room name:  {}", room.getRoomName());
+		logger.info(Markers.GETTER, "Room name:  {}", room.getRoomName());
 		return room.getRoomName();
 	}
 
-	public LightType getLightType(){
-//		logger.info(Markers.GETTER,"SensorType is {}",typeOfSwitching);
+	public LightType getLightType() {
+		// logger.info(Markers.GETTER,"SensorType is {}",typeOfSwitching);
 		return typeOfSwitching;
 	}
-	
+
 	public String getLightName() {
-//		logger.info(Markers.GETTER,"Light name:  {}", lightName);
+		// logger.info(Markers.GETTER,"Light name:  {}", lightName);
 		return lightName;
 	}
 
 	public int getPortNo() {
-		logger.info(Markers.GETTER,"Port Number: {}", portNo);
+		logger.info(Markers.GETTER, "Port Number: {}", portNo);
 		return portNo;
 	}
 
@@ -95,11 +93,11 @@ public class LightApplication {
 			setState(false);
 		else
 			setState(true);
-		logger.info("Toggling {}",lightName);
+		logger.info("Toggling {}", lightName);
 	}
 
 	public boolean getState() {
-		logger.info("{} is {}",lightName, lightState ? "ON" : "OFF");
+		logger.info("{} is {}", lightName, lightState ? "ON" : "OFF");
 		return lightState;
 	}
 

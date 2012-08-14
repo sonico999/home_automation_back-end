@@ -13,13 +13,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class StepperApplication {
 	private ArrayList<Integer> ports = new ArrayList<Integer>();
 	private final Integer STEPPER1;
 	private final Integer STEPPER2;
 	private final Integer STEPPER3;
-	private final Integer STEPPER4 ;
+	private final Integer STEPPER4;
 	private final boolean HIGH = true;
 	private final boolean LOW = false;
 
@@ -33,28 +32,28 @@ public class StepperApplication {
 
 	private final ArduinoCommunication AC;
 	private Sensor angleSensor;
-	
+
 	private static final Logger logger = LoggerFactory
 			.getLogger("StepperApplication");
 
 	public StepperApplication(ArduinoCommunication AC, IRoom room,
 			String stepperMotorName, List<Integer> ports) throws IOException,
 			InterruptedException {
-		STEPPER1=ports.get(0);
-		STEPPER2=ports.get(1);
-		STEPPER3=ports.get(2);
-		STEPPER4=ports.get(3);
+		STEPPER1 = ports.get(0);
+		STEPPER2 = ports.get(1);
+		STEPPER3 = ports.get(2);
+		STEPPER4 = ports.get(3);
 		logger.info(Markers.CONSTRUCTOR,
 				"Creating Stepper Application instance");
 		this.AC = AC;
-		this.ports=(ArrayList<Integer>) ports;
+		this.ports = (ArrayList<Integer>) ports;
 		this.stepperMotorName = stepperMotorName;
 		this.room = room;
-		
+
 		angleSensor = new Sensor(SensorType.ANGLE_SENSOR, AC, room,
 				stepperMotorName + "angle", ports.get(4));
-//		rotate(false);
-//		rotate(true);
+		// rotate(false);
+		// rotate(true);
 	}
 
 	/**
@@ -65,7 +64,8 @@ public class StepperApplication {
 	 */
 	public synchronized void rotateMultiple(int multiple, boolean direction)
 			throws IOException, InterruptedException {
-		logger.info("Rotating multiple {} to {}", stepperMotorName, direction ? "Clockwise" : "Anticlockwise");
+		logger.info("Rotating multiple {} to {}", stepperMotorName,
+				direction ? "Clockwise" : "Anticlockwise");
 		for (int x = 0; x < multiple; x++) {
 			if (angle > 30 && direction == true) {
 				break;
@@ -85,7 +85,8 @@ public class StepperApplication {
 	 */
 	public synchronized void rotateExtreme(boolean direction)
 			throws IOException, InterruptedException {
-		logger.info("Rotating  {} to extreme {}", stepperMotorName, direction ? "Clockwise" : "Anticlockwise");
+		logger.info("Rotating  {} to extreme {}", stepperMotorName,
+				direction ? "Clockwise" : "Anticlockwise");
 
 		while (angle < 32 && direction == true) {
 			rotate(direction);
@@ -127,7 +128,8 @@ public class StepperApplication {
 	 */
 	public void rotate(boolean direction) throws IOException,
 			InterruptedException {
-		logger.info("Rotate {} to {}", stepperMotorName, direction ? "Clockwise" : "Anticlockwise");
+		logger.info("Rotate {} to {}", stepperMotorName,
+				direction ? "Clockwise" : "Anticlockwise");
 
 		if ((stepLeft == 0 && direction == true)
 				|| (stepRight == 3 && direction == false)) {
@@ -183,25 +185,26 @@ public class StepperApplication {
 	 */
 
 	public String getStepperMotorName() {
-//		logger.info(Markers.GETTER,"Stepper motor name:  {}", stepperMotorName);
+		// logger.info(Markers.GETTER,"Stepper motor name:  {}",
+		// stepperMotorName);
 		return stepperMotorName;
 	}
 
 	public String getRoom() {
-//		logger.info(Markers.GETTER,"Room name:  {}", room.getRoomName());
+		// logger.info(Markers.GETTER,"Room name:  {}", room.getRoomName());
 		return room.getRoomName();
 	}
 
 	public List<Integer> getPorts() {
-		logger.info("Ports used are" );
-		for(int x=0;x<5;x++){
-			logger.info("Port "+x+"="+ports.get(x).intValue());
+		logger.info("Ports used are");
+		for (int x = 0; x < 5; x++) {
+			logger.info("Port " + x + "=" + ports.get(x).intValue());
 		}
 		return ports;
 	}
 
 	public double getAngle() throws IOException, PercentageOutOfRange {
-		logger.info(Markers.GETTER,"Getting angle.");
+		logger.info(Markers.GETTER, "Getting angle.");
 		double voltageValue = angleSensor.read();
 		if (voltageValue < 2.45) {
 			voltageDifference = 2.45 - voltageValue;
