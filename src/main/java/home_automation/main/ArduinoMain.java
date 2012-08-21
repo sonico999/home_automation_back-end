@@ -1,6 +1,14 @@
 package home_automation.main;
 
+import org.restlet.resource.ClientResource;
+
+import home_automation.applications.LightApplication;
+import home_automation.constants.Constants.LightType;
+import home_automation.room_types.Bedroom;
+import home_automation.room_types.ClassList;
+import home_automation.room_types.Garage;
 import home_automation.rooms.MainBedroom;
+import home_automation.webservices_test.HelloWorldResource;
 
 public class ArduinoMain {
 
@@ -9,7 +17,14 @@ public class ArduinoMain {
 	private static int serverPort;
 
 	public static void main(String argv[]) throws Exception {
-		MainBedroom main = new MainBedroom();
+//		HelloWorldResource h = new HelloWorldResource("Why is this ","happening ", "to me....");
+//		System.out.println(h.getJSON());
+		Bedroom g = new Bedroom("garage") ;
+		LightApplication l = new LightApplication(LightType.REGULAR, null,g, "light bed", 30);
+		g.addLight(l);
+		System.out.println(l.toJSON());
+		System.out.println(l.toJSON().get("state"));
+		//MainBedroom main = new MainBedroom();
 		// JAXBContext context = JAXBContext
 		// .newInstance(new Class[] { Settings.class });
 		// Unmarshaller unmarshaller = context.createUnmarshaller();

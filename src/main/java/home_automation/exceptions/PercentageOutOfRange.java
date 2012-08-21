@@ -11,4 +11,7 @@ public class PercentageOutOfRange extends Exception {
 		System.out.println("Percentage has to be from 0 t0 100");
 	}
 
+	public PercentageOutOfRange(String exception) {
+		System.out.println(exception);
+	}
 }

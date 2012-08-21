@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -194,6 +195,11 @@ public class StepperApplication {
 		// logger.info(Markers.GETTER,"Room name:  {}", room.getRoomName());
 		return room.getRoomName();
 	}
+	
+	public Sensor getSensor() {
+		// logger.info(Markers.GETTER,"Room name:  {}", room.getRoomName());
+		return angleSensor;
+	}
 
 	public List<Integer> getPorts() {
 		logger.info("Ports used are");
@@ -222,4 +228,17 @@ public class StepperApplication {
 
 		return angle;
 	}
+	
+	public JSONObject toJSON() {
+		try{
+		 JSONObject jsonobj = new JSONObject(this);
+		 jsonobj.put("portNumber", ports);
+		 jsonobj.put("stepperMotorName", stepperMotorName);
+		// jsonobj.put("stepperMotorType", typeOfMotor);
+		 jsonobj.put("Room", room);
+		 return jsonobj;
+		}catch(Exception e){
+		 return null;
+		}
+		}
 }

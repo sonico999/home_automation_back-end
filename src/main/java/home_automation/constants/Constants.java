@@ -36,4 +36,8 @@ public final class Constants {
 	public static enum SensorType {
 		TEMPERATURE_SENSOR, HUMIDITY_SENSOR, PROXIMITY_SENSOR, LIGHT_SENSOR, ANGLE_SENSOR
 	};
+	
+	public static enum MotorType {
+		BRUSHLESS_MOTOR, ELECTRIC_MOTOR, HYDRAULIC_MOTOR
+	};
 }

@@ -9,18 +9,18 @@ import home_automation.room_types.IRoom;
 
 import java.io.IOException;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LightApplication {
-	IRoom room;
-	String lightName;
-	int portNo;
-	boolean lightState;
-	LightType typeOfSwitching;
-	int PWMpercentage;
-	int state;
-	ArduinoCommunication AC;
+	private IRoom room;
+	private String lightName;
+	private int portNo;
+	private boolean lightState;
+	private LightType typeOfSwitching;
+	private int PWMpercentage;
+	private ArduinoCommunication AC;
 	private static final Logger logger = LoggerFactory
 			.getLogger("LightApplication");
 
@@ -78,11 +78,9 @@ public class LightApplication {
 	private void setState(boolean toggle) throws IOException {
 		lightState = toggle;
 		if (toggle) {
-			state = 1;
 			AC.write(portNo, true);
 
 		} else {
-			state = 0;
 			AC.write(portNo, false);
 		}
 		logger.info("Switching {} to {}", lightName, toggle ? "ON" : "OFF");
@@ -101,4 +99,20 @@ public class LightApplication {
 		return lightState;
 	}
 
+	public JSONObject toJSON() {
+	try{
+	 JSONObject jsonobj = new JSONObject();
+	 jsonobj.put("state", lightState);
+	 jsonobj.put("portNumber", portNo);
+	 jsonobj.put("lightName", lightName);
+	 jsonobj.put("lightType", typeOfSwitching);
+	 jsonobj.put("Room", room.getClass().getName());
+	 if(typeOfSwitching.equals(LightType.PWM)){
+		 jsonobj.put("brightness",  PWMpercentage);
+	 }
+	 return jsonobj;
+	}catch(Exception e){
+	 return null;
+	}
+	}
 }

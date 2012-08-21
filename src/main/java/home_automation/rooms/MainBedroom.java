@@ -44,7 +44,7 @@ public class MainBedroom {
 	public MainBedroom() throws UnknownHostException, IOException,
 			PortNoOutOfRange, InterruptedException {
 		mainBedroom = new Bedroom("MainBedroom");
-		AC.getInstance("169.254.129.111", 8888);
+		AC.getInstance("Arduino ONE","169.254.129.111", 8888);
 		temperatureSensor = new Sensor(SensorType.TEMPERATURE_SENSOR, AC,
 				mainBedroom, "Temperature Sensor", 20);
 		humiditySensor = new Sensor(SensorType.LIGHT_SENSOR, AC, mainBedroom,

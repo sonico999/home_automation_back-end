@@ -19,70 +19,70 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public abstract class ClassList {
-	static ArrayList<LightApplication> lightList = new ArrayList<LightApplication>();
-	static ArrayList<Sensor> sensorList = new ArrayList<Sensor>();
-	static ArrayList<IRoom> roomList = new ArrayList<IRoom>();
-	static ArrayList<StepperApplication> stepperList = new ArrayList<StepperApplication>();
-	static ArrayList<MotorApplication> motorList = new ArrayList<MotorApplication>();
+	private static ArrayList<LightApplication> allLights = new ArrayList<LightApplication>();
+	private static ArrayList<Sensor> allSensors = new ArrayList<Sensor>();
+	private static ArrayList<IRoom> allRooms = new ArrayList<IRoom>();
+	private static ArrayList<StepperApplication> allSteppers = new ArrayList<StepperApplication>();
+	private static ArrayList<MotorApplication> allMotors = new ArrayList<MotorApplication>();
 	private static final Logger logger = LoggerFactory.getLogger("ClassList");
 
 	public static ArrayList<LightApplication> getLightList() {
 		logger.info(Markers.GETTER, "Returning the list of all the lights");
-		return lightList;
+		return allLights;
 	}
 
 	public static ArrayList<Sensor> getSensorList() {
 		logger.info(Markers.GETTER, "Returning the list of all the sensors");
-		return sensorList;
+		return allSensors;
 	}
 
 	public static ArrayList<StepperApplication> getStepperList() {
 		logger.info(Markers.GETTER, "Returning the list of all the steppers");
-		return stepperList;
+		return allSteppers;
 	}
 
 	public static ArrayList<MotorApplication> getMotorList() {
 		logger.info(Markers.GETTER, "Returning the list of all the motors");
-		return motorList;
+		return allMotors;
 	}
 
 	public static ArrayList<Sensor> getRoomList() {
 		logger.info(Markers.GETTER, "Returning the list of all the rooms");
-		return sensorList;
+		return allSensors;
 	}
 
-	public Sensor addSensor(Sensor sensor) {
+	protected Sensor addSensor(Sensor sensor) {
 		logger.info(Markers.GETTER, "Adding {} to the sensor list",
 				sensor.getSensorName());
-		sensorList.add(sensor);
+		allSensors.add(sensor);
 		return sensor;
 	}
 
-	public LightApplication addLight(LightApplication light) {
+	protected LightApplication addLight(LightApplication light) {
 		logger.info(Markers.GETTER, "Adding {} to the light list",
 				light.getLightName());
-		lightList.add(light);
+		allLights.add(light);
 		return light;
 	}
 
-	public MotorApplication addMotor(MotorApplication motor) {
+	protected MotorApplication addMotor(MotorApplication motor) {
 		logger.info(Markers.GETTER, "Adding {} to the light list",
 				motor.getMotorName());
-		motorList.add(motor);
+		allMotors.add(motor);
 		return motor;
 	}
 
-	public StepperApplication addStepper(StepperApplication stepper) {
+	protected StepperApplication addStepper(StepperApplication stepper) {
 		logger.info(Markers.GETTER, "Adding {} to the stepper list",
 				stepper.getStepperMotorName());
-		stepperList.add(stepper);
+		allSteppers.add(stepper);
 		return stepper;
 	}
 
 	protected void addRoom(IRoom room) {
 		logger.info(Markers.GETTER, "Adding {} to the room list",
 				room.getRoomName());
-		roomList.add(room);
+		allRooms.add(room);
 	}
 
 }

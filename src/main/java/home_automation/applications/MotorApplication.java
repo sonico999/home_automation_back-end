@@ -2,7 +2,9 @@ package home_automation.applications;
 
 import home_automation.arduino_communication.ArduinoCommunication;
 import home_automation.constants.Constants;
+import home_automation.constants.Constants.LightType;
 import home_automation.constants.Constants.Markers;
+import home_automation.constants.Constants.MotorType;
 import home_automation.exceptions.PortNoOutOfRange;
 import home_automation.room_types.IRoom;
 
@@ -10,21 +12,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MotorApplication {
-	IRoom room;
-	String motorName;
+	private IRoom room;
+	private String motorName;
 	private final ArrayList<Integer> ports = new ArrayList<Integer>();
-	int state;
-	boolean direction;
-	ArduinoCommunication AC;
+	private boolean direction;
+	private ArduinoCommunication AC;
+	private MotorType typeOfMotor;
 	private static final Logger logger = LoggerFactory
 			.getLogger("MotorApplication");
 
 	public MotorApplication(ArduinoCommunication AC, IRoom room,
-			String motorName, List<Integer> ports) throws PortNoOutOfRange {
+			MotorType typeOfMotor,String motorName, List<Integer> ports) throws PortNoOutOfRange {
 		logger.info(Markers.CONSTRUCTOR,
 				"Creating Motor Controller application instance");
 		if (ports.size() > 2 || ports.size() < 2) {
@@ -34,6 +37,7 @@ public class MotorApplication {
 					"only two ports can be passed to the class MotorApplicatioon");
 		}
 		this.AC = AC;
+		this.typeOfMotor=typeOfMotor;
 		this.room = room;
 		this.motorName = motorName;
 		this.ports.addAll(ports);
@@ -99,4 +103,18 @@ public class MotorApplication {
 		AC.write(ports.get(1), false);
 		logger.info("Stopping motor");
 	}
+	
+	public JSONObject toJSON() {
+		try{
+		 JSONObject jsonobj = new JSONObject();
+		 jsonobj.put("direction", direction);
+		 jsonobj.put("portNumber", ports);
+		 jsonobj.put("motorName", motorName);
+		 jsonobj.put("motorType", typeOfMotor);
+		 jsonobj.put("Room", room);
+		 return jsonobj;
+		}catch(Exception e){
+		 return null;
+		}
+		}
 }

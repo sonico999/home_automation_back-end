@@ -8,16 +8,17 @@ import home_automation.constants.Constants.Markers;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class Garage extends ClassList implements IRoom {
 
 	String garageName;
-	ArrayList<Sensor> garageSensorList = new ArrayList<Sensor>();
-	ArrayList<LightApplication> garageLightList = new ArrayList<LightApplication>();
-	ArrayList<StepperApplication> garageStepperList = new ArrayList<StepperApplication>();
-	ArrayList<MotorApplication> garageMotorList = new ArrayList<MotorApplication>();
+	private ArrayList<Sensor> garageSensorList = new ArrayList<Sensor>();
+	private ArrayList<LightApplication> garageLightList = new ArrayList<LightApplication>();
+	private ArrayList<StepperApplication> garageStepperList = new ArrayList<StepperApplication>();
+	private ArrayList<MotorApplication> garageMotorList = new ArrayList<MotorApplication>();
 
 	private static final Logger logger = LoggerFactory.getLogger("Garage");
 
@@ -79,4 +80,18 @@ public abstract class Garage extends ClassList implements IRoom {
 		logger.info(Markers.GETTER, "Returning {} list of sensors", garageName);
 		return garageSensorList;
 	}
+	
+	public JSONObject toJSON() {
+		try{
+		 JSONObject jsonobj = new JSONObject(this);
+		 jsonobj.put("garageName", garageName);
+		 jsonobj.put("garageLightList", garageLightList);
+		 jsonobj.put("garageSensorList", garageSensorList);
+		 jsonobj.put("garageMotorList", garageMotorList);
+		 jsonobj.put("garageStepperList", garageStepperList);
+		 return jsonobj;
+		}catch(Exception e){
+		 return null;
+		}
+		}
 }

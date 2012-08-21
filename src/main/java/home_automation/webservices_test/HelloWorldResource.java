@@ -1,18 +1,25 @@
 package home_automation.webservices_test;
 
+
+import org.json.JSONObject;
 import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
-import flexjson.JSONSerializer;
 
 /**
  * Resource which has only one representation.
  */
+
 public class HelloWorldResource extends ServerResource {
 	String s;
+	String f;
+	String d;
 
-	public HelloWorldResource(String s) {
+	public HelloWorldResource(String s,String f,String d) {
 		this.s = s;
+		this.f=f;
+		this.d=d;
 	}
 
 	public HelloWorldResource() {
@@ -23,13 +30,28 @@ public class HelloWorldResource extends ServerResource {
 		return "HelloWorld  ..........";
 	}
 
-	@Get
-	public String hello() {
-		return "hello";
+	public static String log() {
+		return "Hello";
+	}
+	
+	@Post
+	public static String hello(String s) {
+		return s;
 	}
 
-	public String toJSON() {
-		JSONSerializer serializer = new JSONSerializer();
-		return serializer.deepSerialize(this);
+	/**
+	 * Convert this object to a JSON object for representation
+	 */
+	@Get
+	public JSONObject toJSON() {
+	try{
+	 JSONObject jsonobj = new JSONObject();
+	 jsonobj.put("s", "String s");
+	 jsonobj.put("f", "String f");
+	 jsonobj.put("d", "String d");
+	 return jsonobj;
+	}catch(Exception e){
+	 return null;
+	}
 	}
 }

@@ -8,15 +8,16 @@ import home_automation.constants.Constants.Markers;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Bathroom extends ClassList implements IRoom {
-	String bathroomName;
-	ArrayList<Sensor> bathroomSensorList = new ArrayList<Sensor>();
-	ArrayList<LightApplication> bathroomLightList = new ArrayList<LightApplication>();
-	ArrayList<StepperApplication> bathroomStepperList = new ArrayList<StepperApplication>();
-	ArrayList<MotorApplication> bathroomMotorList = new ArrayList<MotorApplication>();
+	private String bathroomName;
+	private ArrayList<Sensor> bathroomSensorList = new ArrayList<Sensor>();
+	private ArrayList<LightApplication> bathroomLightList = new ArrayList<LightApplication>();
+	private ArrayList<StepperApplication> bathroomStepperList = new ArrayList<StepperApplication>();
+	private ArrayList<MotorApplication> bathroomMotorList = new ArrayList<MotorApplication>();
 
 	private static final Logger logger = LoggerFactory.getLogger("Bathroom");
 
@@ -79,4 +80,18 @@ public class Bathroom extends ClassList implements IRoom {
 				bathroomName);
 		return bathroomSensorList;
 	}
+	
+	public JSONObject toJSON() {
+		try{
+		 JSONObject jsonobj = new JSONObject(this);
+		 jsonobj.put("bathroomName", bathroomName);
+		 jsonobj.put("bathroomLightList", bathroomLightList);
+		 jsonobj.put("bathroomSensorList", bathroomSensorList);
+		 jsonobj.put("bathroomMotorList", bathroomMotorList);
+		 jsonobj.put("bathroomStepperList", bathroomStepperList);
+		 return jsonobj;
+		}catch(Exception e){
+		 return null;
+		}
+		}
 }

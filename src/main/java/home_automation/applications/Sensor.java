@@ -11,15 +11,16 @@ import home_automation.room_types.IRoom;
 
 import java.io.IOException;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Sensor {
-	IRoom room;
-	String sensorName;
-	int portNo;
-	ArduinoCommunication AC;
-	SensorType sensorType;
+	private IRoom room;
+	private String sensorName;
+	private int portNo;
+	private ArduinoCommunication AC;
+	private SensorType sensorType;
 	private static final Logger logger = LoggerFactory.getLogger("Sensor");
 
 	public Sensor(SensorType sensorType, ArduinoCommunication AC, IRoom room,
@@ -55,4 +56,17 @@ public class Sensor {
 		return AC.readAnalog(portNo);
 	}
 
+	public JSONObject toJSON() {
+		try{
+		 JSONObject jsonobj = new JSONObject(this);
+	//	 jsonobj.put("direction", AC.readAnalog(portNo));
+		 jsonobj.put("portNumber", portNo);
+		 jsonobj.put("sensorName", sensorName);
+		 jsonobj.put("sensorType", sensorType);
+		 jsonobj.put("Room", room);
+		 return jsonobj;
+		}catch(Exception e){
+		 return null;
+		}
+		}
 }

@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,17 +19,19 @@ public class ArduinoCommunication {
 	private String serverIP;
 	private int serverPort;
 	private static ArduinoCommunication AC = null;
-	DataOutputStream outToServer;
-	BufferedReader inFromServer;
-	Socket clientSocket;
-	String msgToServer;
+	private DataOutputStream outToServer;
+	private String arduinoName;
+	private BufferedReader inFromServer;
+	private Socket clientSocket;
+	private String msgToServer;
 	private static final Logger logger = LoggerFactory
 			.getLogger("ArduinoCommunication");
 
-	private ArduinoCommunication(String serverIP, int serverPort)
+	private ArduinoCommunication(String arduinoName,String serverIP, int serverPort)
 			throws UnknownHostException, IOException {
 		this.serverIP = serverIP;
 		this.serverPort = serverPort;
+		this.arduinoName=arduinoName;
 		logger.info(Markers.CONSTRUCTOR, "Connecting to Arduino with:"
 				+ serverIP + " on port:" + serverPort);
 		clientSocket = new Socket(serverIP, serverPort);
@@ -41,11 +44,11 @@ public class ArduinoCommunication {
 				clientSocket.getInputStream()));
 	}
 
-	public static ArduinoCommunication getInstance(String serverIP,
+	public static ArduinoCommunication getInstance(String arduinoName,String serverIP,
 			int serverPort) throws UnknownHostException, IOException {
 		logger.info("Getting instance of ArduinoCommunication");
 		if (AC == null) {
-			AC = new ArduinoCommunication(serverIP, serverPort);
+			AC = new ArduinoCommunication(arduinoName,serverIP, serverPort);
 			return AC;
 		} else
 			return AC;
@@ -105,4 +108,21 @@ public class ArduinoCommunication {
 		logger.info(Markers.GETTER, "Server Port: {}", serverPort);
 		return serverPort;
 	}
+	
+	public int getName() {
+		logger.info(Markers.GETTER, "Arduino Name: {}", arduinoName);
+		return serverPort;
+	} 
+	
+	public JSONObject toJSON() {
+		try{
+		 JSONObject jsonobj = new JSONObject(this);
+		 jsonobj.put("serverIP", serverIP);
+		 jsonobj.put("serverPort", serverPort);
+		 jsonobj.put("arduinoName", arduinoName);
+		 return jsonobj;
+		}catch(Exception e){
+		 return null;
+		}
+		}
 }
