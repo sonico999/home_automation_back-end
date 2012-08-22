@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Garage extends ClassList implements IRoom {
+public class Garage extends ClassList implements IRoom {
 
 	String garageName;
 	private ArrayList<Sensor> garageSensorList = new ArrayList<Sensor>();

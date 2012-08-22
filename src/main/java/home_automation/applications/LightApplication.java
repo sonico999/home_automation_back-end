@@ -46,8 +46,19 @@ public class LightApplication {
 			logger.info(Markers.SETTER, "Setting light brightness to {}%",
 					PWMpercentage);
 			AC.pwm(portNo, PWMpercentage);
-		} else
+		} else{
 			logger.error("The light {} is not a PWM type", lightName);
+			if(PWMpercentage>50){
+				setState(true);
+			logger.info(Markers.SETTER, "Setting {} to ON",lightName
+					);
+			}
+			else {
+				setState(false);
+			logger.info(Markers.SETTER, "Setting {} to OFF",
+					lightName);
+			}
+		}
 	}
 
 	public int getBrightness() {
@@ -79,7 +90,6 @@ public class LightApplication {
 		lightState = toggle;
 		if (toggle) {
 			AC.write(portNo, true);
-
 		} else {
 			AC.write(portNo, false);
 		}

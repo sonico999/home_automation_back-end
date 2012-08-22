@@ -41,18 +41,19 @@ public class MainBedroom {
 		}
 	};
 
-	public MainBedroom() throws UnknownHostException, IOException,
+	public MainBedroom(ArduinoCommunication AC) throws UnknownHostException, IOException,
 			PortNoOutOfRange, InterruptedException {
+		this.AC=AC;
 		mainBedroom = new Bedroom("MainBedroom");
-		AC.getInstance("Arduino ONE","169.254.129.111", 8888);
+		
 		temperatureSensor = new Sensor(SensorType.TEMPERATURE_SENSOR, AC,
 				mainBedroom, "Temperature Sensor", 20);
 		humiditySensor = new Sensor(SensorType.LIGHT_SENSOR, AC, mainBedroom,
 				"Light Sensor", 21);
 		ceilingLights = new LightApplication(LightType.PWM, AC, mainBedroom,
-				"Ceiling Lights", 3);
+				"Ceiling Lights", 24);
 		sideLights = new LightApplication(LightType.REGULAR, AC, mainBedroom,
-				"Side Lights", 22);
+				"Side Lights", 26);
 		blinds = new StepperApplication(AC, mainBedroom, "Blinds Control",
 				ports);
 		addApplicationsToRoom();
@@ -66,21 +67,25 @@ public class MainBedroom {
 		mainBedroom.addStepper(blinds);
 	}
 
-	public boolean getCeilingLights() {
-		return ceilingLights.getState();
+	public int getCeilingLightsBrightness() {
+		return ceilingLights.getBrightness();
 	}
 
-	public void toggleCeilingLights() throws IOException {
-		ceilingLights.toggle();
+	public LightApplication getLightApplication(){
+		return ceilingLights;
+	}
+	public void setCeilingLightsBrightness(int percentage) throws IOException,
+	PercentageOutOfRange {
+ceilingLights.setBrightness(percentage);
 	}
 
-	public int getSideLightsValue() {
-		return sideLights.getBrightness();
+	public boolean getSideLightsState() {
+		return sideLights.getState();
 	}
 
-	public void setSideLightsValue(int percentage) throws IOException,
+	public void toggleSideLights() throws IOException,
 			PercentageOutOfRange {
-		sideLights.setBrightness(percentage);
+		sideLights.toggle();
 	}
 
 	public double getTemperature() throws IOException, PercentageOutOfRange {
@@ -93,6 +98,10 @@ public class MainBedroom {
 
 	public void rotateBlinds() throws IOException, InterruptedException {
 		blinds.rotateMultiple(4, true);
+	}
+	
+	public Bedroom getBedroom() throws IOException, InterruptedException {
+		return mainBedroom;
 	}
 
 }

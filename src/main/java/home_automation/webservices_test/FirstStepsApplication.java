@@ -1,5 +1,7 @@
 package home_automation.webservices_test;
 
+import home_automation.webservices.LightControllerApplication;
+
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Restlet;
@@ -17,7 +19,7 @@ public class FirstStepsApplication extends Application {
         Router router = new Router(getContext());
 
         // Defines only one route
-        router.attach("/hello/{s}", HelloWorldResource.class);
+        router.attach("/hello/", LightControllerApplication.class);
 
         return router;
     }

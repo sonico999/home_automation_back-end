@@ -1,13 +1,17 @@
 package home_automation.main;
 
+import java.util.ArrayList;
+
 import org.restlet.resource.ClientResource;
 
 import home_automation.applications.LightApplication;
+import home_automation.arduino_communication.ArduinoCommunication;
 import home_automation.constants.Constants.LightType;
 import home_automation.room_types.Bedroom;
 import home_automation.room_types.ClassList;
 import home_automation.room_types.Garage;
 import home_automation.rooms.MainBedroom;
+import home_automation.webservices.WebServices;
 import home_automation.webservices_test.HelloWorldResource;
 
 public class ArduinoMain {
@@ -17,13 +21,13 @@ public class ArduinoMain {
 	private static int serverPort;
 
 	public static void main(String argv[]) throws Exception {
-//		HelloWorldResource h = new HelloWorldResource("Why is this ","happening ", "to me....");
-//		System.out.println(h.getJSON());
-		Bedroom g = new Bedroom("garage") ;
-		LightApplication l = new LightApplication(LightType.REGULAR, null,g, "light bed", 30);
-		g.addLight(l);
-		System.out.println(l.toJSON());
-		System.out.println(l.toJSON().get("state"));
+		ArduinoCommunication AC=ArduinoCommunication.getInstance("Arduino one", "169.254.129.111", 8888);
+//	MainBedroom mb = new MainBedroom(AC);
+		Garage g = new Garage("garage");
+		
+		LightApplication l = new LightApplication(LightType.PWM, AC, g, "WoooooooooW", 24);
+		WebServices webServices = new WebServices(l);
+		webServices.start();
 		//MainBedroom main = new MainBedroom();
 		// JAXBContext context = JAXBContext
 		// .newInstance(new Class[] { Settings.class });
