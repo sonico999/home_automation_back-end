@@ -1,4 +1,4 @@
-package home_automation.webservices;
+package test.webservices;
 
 import home_automation.applications.LightApplication;
 import home_automation.exceptions.PercentageOutOfRange;

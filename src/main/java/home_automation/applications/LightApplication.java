@@ -86,7 +86,7 @@ public class LightApplication {
 		return portNo;
 	}
 
-	private void setState(boolean toggle) throws IOException {
+	public void setState(boolean toggle) throws IOException {
 		lightState = toggle;
 		if (toggle) {
 			AC.write(portNo, true);

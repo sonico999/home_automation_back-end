@@ -45,7 +45,6 @@ public class MainBedroom {
 			PortNoOutOfRange, InterruptedException {
 		this.AC=AC;
 		mainBedroom = new Bedroom("MainBedroom");
-		
 		temperatureSensor = new Sensor(SensorType.TEMPERATURE_SENSOR, AC,
 				mainBedroom, "Temperature Sensor", 20);
 		humiditySensor = new Sensor(SensorType.LIGHT_SENSOR, AC, mainBedroom,
@@ -83,9 +82,9 @@ ceilingLights.setBrightness(percentage);
 		return sideLights.getState();
 	}
 
-	public void toggleSideLights() throws IOException,
+	public void setSideLightsState(boolean state) throws IOException,
 			PercentageOutOfRange {
-		sideLights.toggle();
+		sideLights.setState(state);
 	}
 
 	public double getTemperature() throws IOException, PercentageOutOfRange {
@@ -96,8 +95,8 @@ ceilingLights.setBrightness(percentage);
 		return humiditySensor.read();
 	}
 
-	public void rotateBlinds() throws IOException, InterruptedException {
-		blinds.rotateMultiple(4, true);
+	public void rotateBlinds(boolean direction) throws IOException, InterruptedException {
+		blinds.rotateMultiple(4, direction);
 	}
 	
 	public Bedroom getBedroom() throws IOException, InterruptedException {

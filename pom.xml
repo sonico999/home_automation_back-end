@@ -15,23 +15,26 @@
 			<name>Public online Restlet repository</name>
 			<url>http://maven.restlet.org</url>
 		</repository>
-	
+		<repository>
+			<id>JBoss repository</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
 	</repositories>
 	<dependencies>
-	
-	<!-- Logback dependency -->
+
+		<!-- Logback dependency -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>ch.qos.logback</groupId> -->
+<!-- 			<artifactId>logback-core</artifactId> -->
+<!-- 			<version>1.0.0</version> -->
+<!-- 		</dependency> -->
 
-<!--  JAXB binding -->
+		<!-- JAXB binding -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
@@ -42,32 +45,32 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.0.3</version>
 		</dependency>
-		
+
 		<!-- Spring 3 dependencies -->
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-core</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
- 
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-context</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
- 
-	<!-- JavaConfig need this library -->
-	<dependency>
-		<groupId>cglib</groupId>
-		<artifactId>cglib</artifactId>
-		<version>2.2.2</version>
-	</dependency>
-		<!--  JSON -->
 		<dependency>
-	<groupId>org.json</groupId>
-	<artifactId>json</artifactId>
-	<version>20090211</version>
-</dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- JavaConfig need this library -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
 		<dependency>
 			<groupId>org.restlet.jse</groupId>
 			<artifactId>org.restlet.lib.org.json</artifactId>
@@ -87,6 +90,12 @@
 			<groupId>org.restlet.jse</groupId>
 			<artifactId>org.restlet.ext.xml</artifactId>
 			<version>2.0.14</version>
+		</dependency>
+		<!-- RestEasy -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>1.1.GA</version>
 		</dependency>
 	</dependencies>
 
@@ -186,7 +195,7 @@
 				<executions>
 					<execution>
 						<id>add-source</id>
-						<phase>generate-sources</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>add-source</goal>
 						</goals>

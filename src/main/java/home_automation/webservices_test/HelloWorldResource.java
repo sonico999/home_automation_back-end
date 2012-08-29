@@ -3,14 +3,12 @@ package home_automation.webservices_test;
 
 import org.json.JSONObject;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 
 /**
  * Resource which has only one representation.
  */
-
 public class HelloWorldResource extends ServerResource {
 	String s;
 	String f;
@@ -25,16 +23,16 @@ public class HelloWorldResource extends ServerResource {
 	public HelloWorldResource() {
 
 	}
-
+	@Get
 	public String represent() {
 		return "HelloWorld  ..........";
 	}
-
+	
 	public static String log() {
 		return "Hello";
 	}
 	
-	@Post
+	
 	public static String hello(String s) {
 		return s;
 	}
@@ -42,7 +40,7 @@ public class HelloWorldResource extends ServerResource {
 	/**
 	 * Convert this object to a JSON object for representation
 	 */
-	@Get
+	
 	public JSONObject toJSON() {
 	try{
 	 JSONObject jsonobj = new JSONObject();

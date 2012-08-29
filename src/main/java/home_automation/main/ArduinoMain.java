@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.restlet.resource.ClientResource;
 
+import test.webservices.WebServicesTest;
+
 import home_automation.applications.LightApplication;
 import home_automation.arduino_communication.ArduinoCommunication;
 import home_automation.constants.Constants.LightType;
@@ -26,7 +28,9 @@ public class ArduinoMain {
 		Garage g = new Garage("garage");
 		
 		LightApplication l = new LightApplication(LightType.PWM, AC, g, "WoooooooooW", 24);
-		WebServices webServices = new WebServices(l);
+		WebServicesTest webServices = new WebServicesTest(l);
+		
+		
 		webServices.start();
 		//MainBedroom main = new MainBedroom();
 		// JAXBContext context = JAXBContext
