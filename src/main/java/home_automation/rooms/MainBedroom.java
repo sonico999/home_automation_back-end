@@ -50,9 +50,9 @@ public class MainBedroom {
 		humiditySensor = new Sensor(SensorType.LIGHT_SENSOR, AC, mainBedroom,
 				"Light Sensor", 21);
 		ceilingLights = new LightApplication(LightType.PWM, AC, mainBedroom,
-				"Ceiling Lights", 24);
+				"Ceiling Lights", 5);
 		sideLights = new LightApplication(LightType.REGULAR, AC, mainBedroom,
-				"Side Lights", 26);
+				"Side Lights", 25);
 		blinds = new StepperApplication(AC, mainBedroom, "Blinds Control",
 				ports);
 		addApplicationsToRoom();

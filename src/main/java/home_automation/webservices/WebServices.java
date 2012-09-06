@@ -2,6 +2,7 @@ package home_automation.webservices;
 
 import home_automation.rooms.FrontGarage;
 import home_automation.rooms.MainBedroom;
+import home_automation.rooms.MainKitchen;
 
 import java.util.ArrayList;
 
@@ -18,29 +19,32 @@ import org.restlet.resource.ServerResource;
 public class WebServices extends ServerResource {
 
 	private final ArrayList<CacheDirective> cacheDirectives = new ArrayList<CacheDirective>();
-
-	// Create a new Component
-	private Component component = new Component();
-
 	/**
 	 * @throws Exception
 	 * 
 	 */
-	public WebServices(MainBedroom mainBedroom, FrontGarage frontGarage) {
+	Component component;
+	public WebServices(MainBedroom mainBedroom, FrontGarage frontGarage,MainKitchen mainKitchen) {
 		// Set caching directives to noCache and noStore
+		
+		 component = new Component();
 		cacheDirectives.add(CacheDirective.noCache());
 		cacheDirectives.add(CacheDirective.noStore());
 
 		// Add a new HTTP server listening on the given port
-		Server server = component.getServers().add(Protocol.HTTP, 8182);
+		component.getServers().add(Protocol.HTTP, 8182);
 
 		// Attach the main bedroom application
 		component.getDefaultHost().attach("/mainBedroom",
 				new MainBedroomApplication(cacheDirectives, mainBedroom));
 
-		// Attach the main bedroom application
-		component.getDefaultHost().attach("/mainBedroom",
+		// Attach the front garage application
+		component.getDefaultHost().attach("/frontGarage",
 				new FrontGarageApplication(cacheDirectives, frontGarage));
+		
+		// Attach the main kitchen application
+				component.getDefaultHost().attach("/mainKitchen",
+						new MainKitchenApplication(cacheDirectives, mainKitchen));
 
 	}
 

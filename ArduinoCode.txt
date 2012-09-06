@@ -29,9 +29,11 @@ void loop()
     while (client.connected()) {
       if (client.available()) {
         char c = client.read();
-        //Serial.print(c);
-        clientMsg+=c;//store the recieved chracters in a string
-        //if the character is an "end of line" the whole message is recieved
+        
+        //store the recieved chracters in a string
+        clientMsg+=c;
+        
+        //if the character is  "\n" the message is an input/output port
         if (c == '\n') {
           Serial.println(clientMsg);
           int portNo = clientMsg.substring(0,2).toInt();
@@ -47,6 +49,7 @@ void loop()
           //client.println("You said:"+clientMsg);//modify the string and send it back
           clientMsg="";
         }
+        //if the character is  "\t" the message is PWM value
          if (c == '\t') {
           int portNo = clientMsg.substring(3,4).toInt();
           int pwmValue = clientMsg.substring(4,7).toInt();
@@ -54,6 +57,7 @@ void loop()
           //client.println("You said:"+clientMsg);//modify the string and send it back
           clientMsg="";
         }
+        //if the character is  "\r" the message is an analog read port
         if (c == '\r') {
           int portNo = clientMsg.substring(3,4).toInt();
           Serial.println(portNo,DEC);

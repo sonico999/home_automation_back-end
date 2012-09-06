@@ -63,7 +63,7 @@ public class MainKitchenApplication extends Application {
             }
         };
         
-        // Create the sideLights state handler
+        // Create the setKettleState state handler
         Restlet setKettleState = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
@@ -82,7 +82,7 @@ public class MainKitchenApplication extends Application {
             }
         };
         
-        // Create the getCeilingLights brightness handler
+        // Create the getKettleState brightness handler
         Restlet getKettleState = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
@@ -93,7 +93,7 @@ public class MainKitchenApplication extends Application {
             }
         };
         
-        // Create the sideLights state handler
+        // Create the setCeilingFanSpeed state handler
         Restlet setCeilingFanSpeed = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
@@ -111,7 +111,7 @@ public class MainKitchenApplication extends Application {
 				
             }
         };
-        // Create the temperature handler
+        // Create the getCeilingFanSpeed handler
         Restlet getCeilingFanSpeed = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
@@ -139,7 +139,7 @@ public class MainKitchenApplication extends Application {
 				}
             }
         };
-        // Create the humidity state handler
+        // Create the rotateBlinds state handler
         Restlet rotateBlinds = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {

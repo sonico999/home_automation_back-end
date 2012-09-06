@@ -33,7 +33,7 @@ public class MainBedroomApplication extends Application {
     public synchronized Restlet createInboundRoot() {
         Router router = new Router(getContext());
         
-        // Create the ceilingLights state handler
+        // Create the setCeilingLights state handler
         Restlet setCeilingLightsBrightness = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
@@ -67,7 +67,7 @@ public class MainBedroomApplication extends Application {
         };
         
         // Create the sideLights state handler
-        Restlet toggleSideLights = new Restlet() {
+        Restlet setSideLightsState = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
         		response.setCacheDirectives(cacheDirectives);
@@ -85,7 +85,7 @@ public class MainBedroomApplication extends Application {
             }
         };
         
-        // Create the sideLights state handler
+        // Create the getSideLights state handler
         Restlet getSideLightsState = new Restlet() {
         	@Override
             public void handle(Request request, Response response) {
@@ -134,7 +134,7 @@ public class MainBedroomApplication extends Application {
         router.attach("/light/ceilingLights/{brightness}", setCeilingLightsBrightness);
         
         router.attach("/light/sideLights", getSideLightsState);
-        router.attach("/light/sideLights/{state}", toggleSideLights);
+        router.attach("/light/sideLights/{state}", setSideLightsState);
        
         
         router.attach("/sensor/temperature", getTemperature);
