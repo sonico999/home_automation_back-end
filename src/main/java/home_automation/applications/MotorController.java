@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MotorApplication {
+public class MotorController {
 	private IRoom room;
 	private String motorName;
 	private final ArrayList<Integer> ports = new ArrayList<Integer>();
@@ -26,7 +26,7 @@ public class MotorApplication {
 	private static final Logger logger = LoggerFactory
 			.getLogger("MotorApplication");
 
-	public MotorApplication(ArduinoCommunication AC, IRoom room,
+	public MotorController(ArduinoCommunication AC, IRoom room,
 			MotorType typeOfMotor,String motorName, List<Integer> ports) throws PortNoOutOfRange {
 		logger.info(Markers.CONSTRUCTOR,
 				"Creating Motor Controller application instance");

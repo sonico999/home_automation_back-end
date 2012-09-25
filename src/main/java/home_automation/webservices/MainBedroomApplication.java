@@ -1,7 +1,7 @@
 package home_automation.webservices;
 
 import home_automation.exceptions.PercentageOutOfRange;
-import home_automation.room_types.Bedroom;
+
 import home_automation.rooms.MainBedroom;
 
 import java.io.IOException;
@@ -130,11 +130,11 @@ public class MainBedroomApplication extends Application {
             }
         };
       
-        router.attach("/light/ceilingLights", getCeilingLightsBrightness);
-        router.attach("/light/ceilingLights/{brightness}", setCeilingLightsBrightness);
+        router.attach("/light/PWM/ceilingLight", getCeilingLightsBrightness);
+        router.attach("/light/PWM/ceilingLight/{brightness}", setCeilingLightsBrightness);
         
-        router.attach("/light/sideLights", getSideLightsState);
-        router.attach("/light/sideLights/{state}", setSideLightsState);
+        router.attach("/light/REGULAR/sideLight", getSideLightsState);
+        router.attach("/light/REGULAR/sideLight/{state}", setSideLightsState);
        
         
         router.attach("/sensor/temperature", getTemperature);

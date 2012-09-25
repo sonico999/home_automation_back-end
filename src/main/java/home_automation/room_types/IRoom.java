@@ -1,8 +1,8 @@
 package home_automation.room_types;
 
-import home_automation.applications.LightApplication;
-import home_automation.applications.Sensor;
-import home_automation.applications.StepperApplication;
+import home_automation.applications.SwitchController;
+import home_automation.applications.SensorController;
+import home_automation.applications.StepperMotorController;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,9 @@ public interface IRoom {
 
 	public String getRoomName();
 
-	public LightApplication addLight(LightApplication light);
+	public SwitchController addLight(SwitchController light);
 
-	public Sensor addSensor(Sensor sensor);
+	public SensorController addSensor(SensorController sensor);
 
-	public StepperApplication addStepper(StepperApplication stepper);
+	public StepperMotorController addStepper(StepperMotorController stepper);
 }

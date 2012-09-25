@@ -32,7 +32,8 @@ public class WebServices extends ServerResource {
 		cacheDirectives.add(CacheDirective.noStore());
 
 		// Add a new HTTP server listening on the given port
-		component.getServers().add(Protocol.HTTP, 8182);
+		Server server = component.getServers().add(Protocol.HTTP, 8182);
+		server.getContext().getParameters().add("maxTotalConnections","1000");
 
 		// Attach the main bedroom application
 		component.getDefaultHost().attach("/mainBedroom",

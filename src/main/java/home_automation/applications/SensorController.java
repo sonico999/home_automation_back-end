@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Sensor {
+public class SensorController {
 	private IRoom room;
 	private String sensorName;
 	private int portNo;
@@ -23,7 +23,7 @@ public class Sensor {
 	private SensorType sensorType;
 	private static final Logger logger = LoggerFactory.getLogger("Sensor");
 
-	public Sensor(SensorType sensorType, ArduinoCommunication AC, IRoom room,
+	public SensorController(SensorType sensorType, ArduinoCommunication AC, IRoom room,
 			String sensorName, int portNo) {
 		this.room = room;
 		this.sensorName = sensorName;

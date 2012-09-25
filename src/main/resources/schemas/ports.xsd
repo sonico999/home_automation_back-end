@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2012 MARSEC-XL International Limited Licensed under the Apache 
-	License, Version 2.0 (the "License"); you may not use this file except in 
-	compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
-	Unless required by applicable law or agreed to in writing, software distributed 
-	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
-	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
-	the specific language governing permissions and limitations under the License. -->
+
 <?xml-stylesheet type="text/xsl" href="xs3p.xsl"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="ports.settings.home_automation" xmlns="ports.settings.home_automation"
@@ -14,50 +8,72 @@
 
 	<xsd:complexType name="PortsType">
 		<xsd:sequence>
-			<xsd:element name="port" type="PortType" minOccurs="1"
-				maxOccurs="unbounded" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="PortType">
-		<xsd:sequence>
-			<xsd:element name="LightConfiguration" type="ChooseType" minOccurs="1"
-				maxOccurs="unbounded" />
-			<xsd:element name="MotorConfiguration" type="ChooseType" minOccurs="1"
-				maxOccurs="unbounded"/>
-			<xsd:element name="SensorConfiguration" type="ADCType" minOccurs="1"
-				maxOccurs="unbounded"/>
-			<xsd:element name="StepperConfiguration" type="IOType" minOccurs="1"
-				maxOccurs="unbounded"/>
-		</xsd:sequence>
-	</xsd:complexType>
-
-<xsd:complexType name="ChooseType">
-		<xsd:sequence>
-			<xsd:choice>
-				<xsd:element name="PWM" type="PWMType" />
-				<xsd:element name="IO" type="IOType" />
-				<xsd:element name="ADC" type="ADCType" />
-			</xsd:choice>
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="Info">
-		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="Port" type="xsd:int" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="PWMType">
-		<xsd:sequence>
-			<xsd:element name="type" type="xsd:string" fixed="PWM" />
-			<xsd:element name="PWMPorts">
+			<xsd:element name="switch" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="PWM">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="name" type="xsd:string"
+										minOccurs="1" maxOccurs="1" />
+									<xsd:element name="portNo" type="xsd:int"
+										minOccurs="1" maxOccurs="1" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="IO">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="name" type="xsd:string"
+										minOccurs="1" maxOccurs="1" />
+									<xsd:element name="portNo" type="xsd:int"
+										minOccurs="1" maxOccurs="1" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="motor" minOccurs="0" maxOccurs="unbounded">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:sequence>
-							<xsd:element name="port" type="Info" minOccurs="1"
-								maxOccurs="unbounded"  />
+							<xsd:element name="name" type="xsd:string" minOccurs="1"
+								maxOccurs="1" />
+							<xsd:element name="portNo" type="xsd:int" minOccurs="2"
+								maxOccurs="2" />
+						</xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="sensor" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" minOccurs="1"
+							maxOccurs="1" />
+						<xsd:element name="portNo" type="xsd:int" minOccurs="1"
+							maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="stepper" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:sequence>
+							<xsd:element name="name" type="xsd:string" minOccurs="1"
+								maxOccurs="1" />
+							<xsd:element name="portNo" type="xsd:int" minOccurs="4"
+								maxOccurs="unbounded" />
+							<xsd:element name="sensor" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="name" type="xsd:string"
+											minOccurs="1" maxOccurs="1" />
+										<xsd:element name="portNo" type="xsd:int"
+											minOccurs="1" maxOccurs="1" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
 						</xsd:sequence>
 					</xsd:sequence>
 				</xsd:complexType>
@@ -65,38 +81,38 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="ADCType">
-		<xsd:sequence>
-			<xsd:element name="type" type="xsd:string" fixed="ADC" />
-			<xsd:element name="ADCPorts">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:sequence>
-							<xsd:element name="port" type="Info" minOccurs="1"
-								maxOccurs="unbounded"  />
-						</xsd:sequence>
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
 
-	<xsd:complexType name="IOType">
-		<xsd:sequence>
-			<xsd:element name="type" type="xsd:string" fixed="IO" />
-			<xsd:element name="IOPorts">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:sequence>
-							<xsd:element name="port" type="Info" minOccurs="1"
-								maxOccurs="unbounded"  />
-						</xsd:sequence>
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
 
+
+
+	<!-- <xsd:complexType name="PWMType"> -->
+
+	<!-- <xsd:sequence> -->
+	<!-- <xsd:element name="name" type="xsd:string" minOccurs="1" -->
+	<!-- maxOccurs="1" /> -->
+	<!-- <xsd:element name="portNo" type="xsd:int" minOccurs="1" -->
+	<!-- maxOccurs="1" /> -->
+	<!-- </xsd:sequence> -->
+	<!-- </xsd:complexType> -->
+
+	<!-- <xsd:complexType name="IOType"> -->
+	<!-- <xsd:sequence> -->
+	<!-- <xsd:element name="name" type="xsd:string" minOccurs="1" -->
+	<!-- maxOccurs="1" /> -->
+	<!-- <xsd:element name="portNo" type="xsd:int" minOccurs="1" -->
+	<!-- maxOccurs="1" /> -->
+
+	<!-- </xsd:sequence> -->
+	<!-- </xsd:complexType> -->
+
+	<!-- <xsd:complexType name="ADCType"> -->
+	<!-- <xsd:sequence> -->
+	<!-- <xsd:element name="name" type="xsd:string" minOccurs="1" -->
+	<!-- maxOccurs="1" /> -->
+	<!-- <xsd:element name="portNo" type="xsd:int" minOccurs="1" -->
+	<!-- maxOccurs="1" /> -->
+	<!-- </xsd:sequence> -->
+	<!-- </xsd:complexType> -->
 
 </xsd:schema>
 

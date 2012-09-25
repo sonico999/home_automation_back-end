@@ -1,59 +1,82 @@
 package home_automation.rooms;
 
-import home_automation.applications.LightApplication;
-import home_automation.applications.Sensor;
-import home_automation.applications.StepperApplication;
-import home_automation.arduino_communication.ArduinoCommunication;
+import home_automation.applications.SensorController;
+import home_automation.applications.StepperMotorController;
+import home_automation.applications.SwitchController;
 import home_automation.constants.Constants.LightType;
 import home_automation.constants.Constants.SensorType;
 import home_automation.exceptions.PercentageOutOfRange;
 import home_automation.exceptions.PortNoOutOfRange;
-import home_automation.room_types.Bedroom;
-import home_automation.room_types.Kitchen;
+import home_automation.room_types.RoomApplication;
+import home_automation.settings.Settings;
+import home_automation.settings.ports.PortsType.Sensor;
+import home_automation.settings.ports.PortsType.Stepper;
+import home_automation.settings.ports.PortsType.Switch.IO;
+import home_automation.settings.ports.PortsType.Switch.PWM;
+import home_automation.settings.room_application.RoomApplicationType;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 public class MainKitchen {
-	Kitchen mainKitchen;
-	Sensor temperatureSensor;
-	ArduinoCommunication AC;
-	LightApplication ceilingLights;
-	LightApplication ceilingFan;
-	LightApplication kettle;
-	StepperApplication blinds;
+	RoomApplication mainKitchen;
+	SensorController temperatureSensor;
+	SwitchController ceilingLight;
+	SwitchController ceilingFan;
+	SwitchController kettle;
+	StepperMotorController blinds;
 
-	ArrayList<Integer> ports = new ArrayList<Integer>() {
-		{
-			add(30);
-			add(31);
-			add(32);
-			add(33);
-			add(34);
-		}
-	};
+	public MainKitchen() throws UnknownHostException,
+			IOException, PortNoOutOfRange, InterruptedException, JAXBException {
+		JAXBContext context = JAXBContext
+				.newInstance(new Class[] { Settings.class });
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		InputStream is = this.getClass().getClassLoader()
+				.getResourceAsStream("configuration/settings.xml");
 
-	public MainKitchen(ArduinoCommunication AC) throws UnknownHostException,
-			IOException, PortNoOutOfRange, InterruptedException {
-		this.AC = AC;
-		mainKitchen = new Kitchen("Main Kitchen");
-		temperatureSensor = new Sensor(SensorType.TEMPERATURE_SENSOR, AC,
-				mainKitchen, "Temperature Sensor", 20);
-		ceilingLights = new LightApplication(LightType.REGULAR, AC,
-				mainKitchen, "Ceiling Lights", 24);
+		Settings settings = (Settings) unmarshaller.unmarshal(is);
+		for (RoomApplicationType RAT : settings.getRoomApplications().getRoom())
+			if (RAT.getName().equals("Main Kitchen")) {
 
-		ceilingFan = new LightApplication(LightType.PWM, AC, mainKitchen,
-				"Ceiling Fan", 24);
-		kettle = new LightApplication(LightType.REGULAR, AC, mainKitchen,
-				"Kitchen kettle", 24);
-		blinds = new StepperApplication(AC, mainKitchen, "Blinds Control",
-				ports);
+				PWM ceilingLightSwitch = RAT.getControllers().getSwitch().get(0).getPWM();
+				IO ceilingFanSwitch = RAT.getControllers().getSwitch().get(1).getIO();
+				IO kettleSwitch = RAT.getControllers().getSwitch().get(2).getIO();
+				Sensor tempSensor = RAT.getControllers().getSensor().get(0);
+				Stepper stepperMotor = RAT.getControllers().getStepper().get(0);
+		mainKitchen = new RoomApplication("Main Kitchen");
+		temperatureSensor = new SensorController(SensorType.TEMPERATURE_SENSOR,
+				ArduinoSetup.getArduino(), mainKitchen,
+				tempSensor.getName(), tempSensor.getPortNo());
+		ceilingLight = new SwitchController(LightType.REGULAR,
+				ArduinoSetup.getArduino(), mainKitchen,
+				ceilingLightSwitch.getName(), ceilingLightSwitch.getPortNo());
+
+		ceilingFan = new SwitchController(LightType.PWM,
+				ArduinoSetup.getArduino(), mainKitchen,
+				ceilingFanSwitch.getName(), ceilingFanSwitch.getPortNo());
+		kettle = new SwitchController(LightType.REGULAR,
+				ArduinoSetup.getArduino(), mainKitchen,
+				kettleSwitch.getName(), kettleSwitch.getPortNo());
+		blinds = new StepperMotorController(
+				ArduinoSetup.getArduino(), mainKitchen,
+				stepperMotor.getName(), stepperMotor.getPortNo());
+		mainKitchen.addLight(ceilingLight);
+		mainKitchen.addLight(kettle);
+		mainKitchen.addLight(ceilingFan);
+		mainKitchen.addSensor(temperatureSensor);
+		mainKitchen.addStepper(blinds);
+			}
 		addApplicationsToRoom();
 	}
 
 	void addApplicationsToRoom() {
-		mainKitchen.addLight(ceilingLights);
+		mainKitchen.addLight(ceilingLight);
 		mainKitchen.addLight(kettle);
 		mainKitchen.addLight(ceilingFan);
 		mainKitchen.addSensor(temperatureSensor);
@@ -61,11 +84,11 @@ public class MainKitchen {
 	}
 
 	public boolean getCeilingLightsState() {
-		return ceilingLights.getState();
+		return ceilingLight.getState();
 	}
 
 	public void setCeilingLightsState(boolean state) throws IOException, PercentageOutOfRange {
-		ceilingLights.setState(state);
+		ceilingLight.setState(state);
 	}
 
 	public boolean getKettleState() {

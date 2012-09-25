@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StepperApplication {
+public class StepperMotorController {
 	private ArrayList<Integer> ports = new ArrayList<Integer>();
 	private final Integer STEPPER1;
 	private final Integer STEPPER2;
@@ -32,12 +32,12 @@ public class StepperApplication {
 	private static double angle = 0;
 
 	private final ArduinoCommunication AC;
-	private Sensor angleSensor;
+	private SensorController angleSensor;
 
 	private static final Logger logger = LoggerFactory
 			.getLogger("StepperApplication");
 
-	public StepperApplication(ArduinoCommunication AC, IRoom room,
+	public StepperMotorController(ArduinoCommunication AC, IRoom room,
 			String stepperMotorName, List<Integer> ports) throws IOException,
 			InterruptedException {
 		STEPPER1 = ports.get(0);
@@ -51,7 +51,7 @@ public class StepperApplication {
 		this.stepperMotorName = stepperMotorName;
 		this.room = room;
 
-		angleSensor = new Sensor(SensorType.ANGLE_SENSOR, AC, room,
+		angleSensor = new SensorController(SensorType.ANGLE_SENSOR, AC, room,
 				stepperMotorName + "angle", ports.get(4));
 		// rotate(false);
 		// rotate(true);
@@ -196,7 +196,7 @@ public class StepperApplication {
 		return room.getRoomName();
 	}
 	
-	public Sensor getSensor() {
+	public SensorController getSensor() {
 		// logger.info(Markers.GETTER,"Room name:  {}", room.getRoomName());
 		return angleSensor;
 	}

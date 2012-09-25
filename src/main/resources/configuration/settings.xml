@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:settings xmlns:p="settings.home_automation" xmlns:p1="arduino.settings.home_automation" xmlns:p2="network.settings.home_automation" xmlns:p3="room_application.settings.home_automation" xmlns:p4="ports.settings.home_automation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="settings.home_automation settings.xsd ">
+ <arduinos>
+		<arduino>
+			<name>Arduino Mega 1</name>
+			<socket>
+				<ip>169.254.129.111</ip>
+				<port>8888</port>
+			</socket>
+		</arduino>
+	</arduinos>
+	<roomApplications>
+		<room>
+			<name>Main Bedroom</name>
+			<controllers>
+				<switch>
+					<PWM>
+						<name>Ceiling Lights</name>
+						<portNo>2</portNo>
+					</PWM>
+				</switch>
+				<switch>
+					<IO>
+						<name>Wall Unit Lights</name>
+						<portNo>22</portNo>
+					</IO>
+				</switch>
+				<sensor>
+					<name>Temperature Sensor</name>
+					<portNo>0</portNo>
+				</sensor>
+				<sensor>
+					<name>Humidity Sensor</name>
+					<portNo>1</portNo>
+				</sensor>
+				<stepper>
+					<name>Curtain Blinds</name>
+					<portNo>23</portNo>
+					<portNo>24</portNo>
+					<portNo>25</portNo>
+					<portNo>26</portNo>
+					<sensor>
+						<name>Blinds Angle</name>
+						<portNo>2</portNo>
+					</sensor>
+				</stepper>
+			</controllers>
+		</room>
+		<room>
+			<name>Front Garage</name>
+			<controllers>
+				<switch>
+					<IO>
+						<name>Ceiling Lights</name>
+						<portNo>27</portNo>
+					</IO>
+				</switch>
+				<motor>
+					<name>Garage door motor</name>
+					<portNo>28</portNo>
+					<portNo>29</portNo>
+				</motor>
+				<sensor>
+					<name>Light Sensor</name>
+					<portNo>3</portNo>
+				</sensor>
+
+			</controllers>
+		</room>
+		<room>
+			<name>Main Kitchen</name>
+			<controllers>
+				<switch>
+					<PWM>
+						<name>Ceiling Lights</name>
+						<portNo>30</portNo>
+					</PWM>
+				</switch>
+				<switch>
+					<IO>
+						<name>Ceiling Fan</name>
+						<portNo>31</portNo>
+					</IO>
+				</switch>
+				<switch>
+					<IO>
+						<name>Kettle</name>
+						<portNo>32</portNo>
+					</IO>
+				</switch>
+				<sensor>
+					<name>Temperature Sensor</name>
+					<portNo>4</portNo>
+				</sensor>
+				<stepper>
+					<name>Curtain Blinds</name>
+					<portNo>33</portNo>
+					<portNo>34</portNo>
+					<portNo>35</portNo>
+					<portNo>36</portNo>
+					<sensor>
+						<name>Blinds Angle</name>
+						<portNo>5</portNo>
+					</sensor>
+				</stepper>
+			</controllers>
+		</room>
+	</roomApplications>
+</p:settings>

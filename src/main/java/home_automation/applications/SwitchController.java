@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LightApplication {
+public class SwitchController {
 	private IRoom room;
 	private String lightName;
 	private int portNo;
@@ -24,7 +24,7 @@ public class LightApplication {
 	private static final Logger logger = LoggerFactory
 			.getLogger("LightApplication");
 
-	public LightApplication(LightType typeOfSwitching, ArduinoCommunication AC,
+	public SwitchController(LightType typeOfSwitching, ArduinoCommunication AC,
 			IRoom room, String lightName, int portNo) throws PortNoOutOfRange {
 		logger.info(Markers.CONSTRUCTOR, "Creating Light Application instance");
 		this.AC = AC;
